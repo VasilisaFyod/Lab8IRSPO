@@ -15,12 +15,11 @@ jobs:
       run: dotnet restore
     - name: Build Project
       run: dotnet build Lab.csproj
-
-test:
-  needs: build
-  runs-on: ubuntu-latest
-  steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-  - name: Run tests
-    run: dotnet test Lab.csproj
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Run tests
+      run: dotnet test src/YourProject.Tests.csproj
