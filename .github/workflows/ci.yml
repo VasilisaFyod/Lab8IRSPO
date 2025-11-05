@@ -12,7 +12,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
     - name: Build Project
-      run: dotnet build src/Lab.csproj
+      run: dotnet build Lab/Lab.csproj
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -20,4 +20,4 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Run tests
-      run: dotnet test src/Lab.csproj
+      run: dotnet test Lab/Lab.csproj
