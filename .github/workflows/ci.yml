@@ -1,0 +1,26 @@
+name: Sequential Workflow
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup .Net
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    - name: Restore depedencies
+      run: dotnet restore
+    - name: Build Project
+      run: dotnet build Lab.csproj
+
+test:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
+  - name: Run tests
+    run: dotnet test Lab.csproj
