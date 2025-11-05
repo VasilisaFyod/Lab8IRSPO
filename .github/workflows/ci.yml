@@ -13,11 +13,28 @@ jobs:
         dotnet-version: '8.0.x'
     - name: Build Project
       run: dotnet build Lab/Lab.csproj
-  test:
-    needs: build
+      
+  test-debug:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
     - name: Run tests
-      run: dotnet test Lab/Lab.csproj
+      run: dotnet test Lab/Lab.csproj --configuration Debug
+
+  test-release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    - name: Run tests
+      run: dotnet test Lab/Lab.csproj --configuration Release
+
