@@ -1,5 +1,5 @@
 name: Publishing artifacts with multiple configurations
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
