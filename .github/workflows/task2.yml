@@ -28,7 +28,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Run tests
-        run: dotnet test ArrayTests/ArrayTests.csproj --collect:"XPlat Code Coverage"
+        run: dotnet test Lab/Lab.csproj --collect:"XPlat Code Coverage"
       - run: echo "some code coverage" > result.txt 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
