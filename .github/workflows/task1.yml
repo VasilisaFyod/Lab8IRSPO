@@ -3,7 +3,7 @@ on: [pull_request]
 
 jobs:
   build:
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix: 
         configuration: [Debug, Release]
@@ -17,12 +17,12 @@ jobs:
       - name: Build project
         run: dotnet build Lab/Lab.csproj --configuration ${{matrix.configuration}}
       - name: Upload artifacts
-        uses: actions/upload-arthifact@v4
+        uses: actions/upload-artifact@v4
         with:
           path: artifacts/
       
   test:
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix: 
         configuration: [Debug, Release]
