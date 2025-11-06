@@ -1,11 +1,10 @@
 name: Combined Workflow
 on: [push, pull_request]
 env:
-  runs-on: ubuntu-latest
   dotnet-version: '8.0.x'
 jobs:
   build: 
-    runs-on: ${{env.runs-on}}
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -18,7 +17,7 @@ jobs:
     
   test:
     needs: build
-    runs-on: ${{env.runs-on}}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -34,7 +33,7 @@ jobs:
         
   analyze:
     needs: build
-    runs-on: ${{env.runs-on}}
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
