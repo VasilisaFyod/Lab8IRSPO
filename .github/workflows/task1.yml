@@ -16,6 +16,7 @@ jobs:
           dotnet-version: '8.0.x'
       - name: Build project
         run: dotnet build Lab/Lab.csproj --configuration ${{matrix.configuration}}
+      - run: echo "some data" > result.txt
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
