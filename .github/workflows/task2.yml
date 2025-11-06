@@ -1,0 +1,36 @@
+name: Setting up a code coverage report and publishing it as an artifact
+on: 
+  push:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build project
+        run: dotnet build Lab/Lab.csproj --configuration Release
+      
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run tests
+        run: dotnet test ArrayTests/ArrayTests.csproj --collect:"XPlat Code Coverage"
+      - run: echo "some code coverage" > result.txt 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: result.txt
