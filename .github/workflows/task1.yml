@@ -20,7 +20,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact-${{ matrix.configuration }} 
-          path: artifacts/
+          path: artifacts/result.txt
       
   test:
     runs-on: ubuntu-latest
