@@ -1,0 +1,42 @@
+name: Combined Workflow
+on: [push, pull_request]
+env:
+  runs-on: ubuntu-latest
+  dotnet-version: '8.0.x'
+jobs:
+  build: 
+    runs-on: ${{env.runs-on}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.dotnet-version}}
+    - name: Build project
+      run: dotnet build Lab/Lab.csproj
+    
+  test:
+    needs: build
+    runs-on: ${{env.runs-on}}
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{env.dotnet-version}}
+      - name: Run tests
+        run: dotnet test Lab/Lab.csproj --configuration ${{matrix.configuration }}
+        
+  analyze:
+    needs: build
+    runs-on: ${{env.runs-on}}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Run code analysis
+      run: dotnet tool install -g dotnet-format && dotnet format Lab/Lab.csproj
